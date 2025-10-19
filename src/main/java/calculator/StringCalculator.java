@@ -1,26 +1,22 @@
 package calculator;
 
+import java.util.List;
+
+import parser.InputParser;
+
 public class StringCalculator {
 
-	private static final String DEFAULT_DELIMITERS = "[,:]"; // 동일한 다른 문법 -> ",|:"
+	private final InputParser parser = new InputParser();
 
-	public int calculate(String input) {
-		if (isEmptyInput(input)) {
-			return 0;
-		}
-
-		return sum(input);
+	public int calculate(String value) {
+		List<Integer> numbers = parser.parse(value);
+		return sum(numbers);
 	}
 
-	private boolean isEmptyInput(String input) {
-		return input == null || input.trim().isEmpty();
-	}
-
-	private int sum(String input) {
-		String[] values = input.split(DEFAULT_DELIMITERS);
+	private int sum(List<Integer> numbers) {
 		int sum = 0;
-		for (String number : values) {
-			sum += Integer.parseInt(number.trim());
+		for (int number : numbers) {
+			sum += number;
 		}
 		return sum;
 	}
